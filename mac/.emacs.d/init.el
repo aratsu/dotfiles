@@ -114,6 +114,8 @@
 (setq org-clock-into-drawer t)
 ;; .orgファイルは自動的にorg-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+;; ノートのファイル名
+(setq org-default-notes-file "notes.org")
 ;; org-directory内のファイルすべてからagendaを作成する
 (setq my-org-agenda-dir "~/org/")
 (setq org-agenda-files (list my-org-agenda-dir))
