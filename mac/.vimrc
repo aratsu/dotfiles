@@ -316,4 +316,4 @@ vnoremap <DOWN> gj
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 inoremap <C-@> <Nop>
-nnoremap <Esc><Esc> :noh<CR>
+nnoremap <silent> <ESC><ESC> :noh<CR>

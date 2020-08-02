@@ -116,9 +116,6 @@
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 ;; ノートのファイル名
 (setq org-default-notes-file "notes.org")
-;; org-directory内のファイルすべてからagendaを作成する
-(setq my-org-agenda-dir "~/org/")
-(setq org-agenda-files (list my-org-agenda-dir))
 ;; TODO状態
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w)" "NOW(n)" "|" "DONE(d)" "CANCELED(c)")))
@@ -134,3 +131,17 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+;; org-directory内のファイルすべてからagendaを作成する
+(setq org-directory "~/org/")
+(setq org-agenda-files (list org-directory))
+;; アジェンダ表示で下線を用いる
+(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
+(setq hl-line-face 'underline)
+;; 標準の祝日を利用しない
+(setq calendar-holidays nil)
+;; org-captureのテンプレート
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Uncategorized Tasks")
+         "* TODO %? %U\n%i\n%a")
+        ("m" "Memo" entry (file+datetree "~/org/memo.org")
+         "* %? %U\n%i\n%a")))
