@@ -6,15 +6,15 @@ endif
 scriptencoding utf-8
 
 " Required:
-set runtimepath+=/home/aratsu/.vim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/home/aratsu/.vim/dein')
-  call dein#begin('/home/aratsu/.vim/dein')
+if dein#load_state('$HOME/.vim/dein')
+  call dein#begin('$HOME/.vim/dein')
 
   " Let dein manage dein
   " Required:
-  call dein#add('/home/aratsu/.vim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('$HOME/.vim/dein/repos/github.com/Shougo/dein.vim')
 
   call dein#add('itchyny/lightline.vim')
   call dein#add('tomtom/tcomment_vim')
