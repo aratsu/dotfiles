@@ -81,7 +81,7 @@
 ;; C-hでBackSpace
 (global-set-key "\C-h" 'delete-backward-char)
 ;; C-kで行全体を削除する
-(setq kill-whole-line t)
+;(setq kill-whole-line t)
 ;; ¥の代わりにバックスラッシュを入力する
 (define-key global-map [?¥] [?\\])
 
