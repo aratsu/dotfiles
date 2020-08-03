@@ -317,3 +317,9 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 inoremap <C-@> <Nop>
 nnoremap <silent> <ESC><ESC> :noh<CR>
+
+" persistent undo
+if has("persistent_undo")
+    set undodir=~/.vim/undodir
+    set undofile
+endif
