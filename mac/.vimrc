@@ -65,10 +65,10 @@ set display=lastline
 
 set smartindent	" オートインデント
 set autoindent
-set tabstop=2	" 見かけのタブ幅
-set shiftwidth=2 " オートインデント幅
+set tabstop=4	" 見かけのタブ幅
+set shiftwidth=4 " オートインデント幅
 set softtabstop=0 " タブ幅
-set expandtab  " タブをスペース複数個で表現
+"set expandtab  " タブをスペース複数個で表現
 set cmdheight=1 " コマンドラインの高さ
 
 "" 不可視文字を可視化
