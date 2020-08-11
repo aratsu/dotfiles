@@ -132,7 +132,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 ;; org-directory内のファイルすべてからagendaを作成する
-(setq org-directory "~/org/")
+(setq org-directory "~/OneDrive/org/")
 (setq org-agenda-files (list org-directory))
 ;; アジェンダ表示で下線を用いる
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
@@ -141,7 +141,13 @@
 (setq calendar-holidays nil)
 ;; org-captureのテンプレート
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Uncategorized Tasks")
+      '(("w" "Work" entry (file+headline "~/OneDrive/org/work2020.org" "Work")
          "* TODO %? %U\n%i\n%a")
-        ("m" "Memo" entry (file+datetree "~/org/memo.org")
+        ("a" "Anime" entry (file+headline "~/OneDrive/org/private.org" "Anime")
+         "* TODO %? %U\n%i\n%a")
+        ("r" "Radio" entry (file+headline "~/OneDrive/org/private.org" "Radio")
+         "* TODO %? %U\n%i\n%a")
+        ("t" "Todo" entry (file+headline "~/OneDrive/org/todo.org" "Uncategorized Tasks")
+         "* TODO %? %U\n%i\n%a")
+        ("m" "Memo" entry (file+datetree "~/OneDrive/org/memo.org")
          "* %? %U\n%i\n%a")))
