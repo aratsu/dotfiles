@@ -16,6 +16,7 @@ if dein#load_state('$HOME/.vim/dein')
 
   call dein#add('itchyny/lightline.vim')
   call dein#add('tomtom/tcomment_vim')
+  call dein#add('fatih/vim-go')
   call dein#add('scrooloose/nerdtree')
   call dein#add('Shougo/unite.vim')
   call dein#add('Shougo/neomru.vim')
@@ -141,3 +142,4 @@ if has("persistent_undo")
     set undodir=~/.vim/undodir
     set undofile
 endif
+
