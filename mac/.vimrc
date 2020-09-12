@@ -58,6 +58,7 @@ set showmatch	" 括弧入力時の対応する括弧を表示
 syntax on	" コードの色分け
 set ruler	" 右下にルーラーを表示する
 set number	" 行番号を表示する
+set cursorline  " 選択行をハイライト
 set t_Co=256	" 256色使用
 set visualbell t_vb=  "ビープ音を消す
 set wildmenu
