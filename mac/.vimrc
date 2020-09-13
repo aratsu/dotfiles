@@ -1,4 +1,4 @@
-"dein Scripts-----------------------------
+"adein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -15,11 +15,14 @@ if dein#load_state('$HOME/.vim/dein')
   call dein#add('$HOME/.vim/dein/repos/github.com/Shougo/dein.vim')
 
   call dein#add('itchyny/lightline.vim')
+  call dein#add('itchyny/vim-gitbranch')
+  call dein#add('mbbill/undotree')
   call dein#add('tomtom/tcomment_vim')
   call dein#add('fatih/vim-go')
   call dein#add('scrooloose/nerdtree')
   call dein#add('Shougo/unite.vim')
   call dein#add('Shougo/neomru.vim')
+  call dein#add('t9md/vim-quickhl')
 
   " Required:
   call dein#end()
@@ -42,8 +45,19 @@ endif
 "lightline--------------------------
 
 if dein#tap('lightline.vim')
+"  let g:lightline = {
+"    \ 'colorscheme': 'landscape',
+"    \ }
   let g:lightline = {
-    \ 'colorscheme': 'landscape',
+	\ 'colorscheme': 'landscape',
+    \ 'active': {
+    \   'left': [['mode', 'paste'],
+    \            ['gitbranch','readonly', 'filename', 'modified']]
+	\ },
+    \ 'component_function': {
+    \   'cwd': 'getcwd',
+    \   'gitbranch': 'gitbranch#name'
+    \ },
     \ }
 endif
 
@@ -64,6 +78,11 @@ set visualbell t_vb=  "ビープ音を消す
 set wildmenu
 set wildmode=longest,list
 set display=lastline
+
+if dein#tap('vim-quickhl')
+	vmap H <Plug>(quickhl-manual-this)
+	nmap H <Plug>(quickhl-manual-reset)
+endif
 
 set smartindent	" オートインデント
 set autoindent
@@ -142,5 +161,8 @@ nnoremap <silent> <ESC><ESC> :noh<CR>
 if has("persistent_undo")
     set undodir=~/.vim/undodir
     set undofile
+endif
+if dein#tap('undotree')
+	:command Undotree UndotreeShow
 endif
 
