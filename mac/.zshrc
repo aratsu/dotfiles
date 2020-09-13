@@ -34,6 +34,7 @@ if [[ ! -d ~/.vim ]]; then
 	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.vim/installer.sh
 	sh ~/.vim/installer.sh ~/.vim/dein
 	rm ~/.vim/installer.sh 
+	mkdir ~/.vim/undodir
 fi
 # end vim ==============================
 
@@ -41,20 +42,12 @@ fi
 # fzf ==================================
 export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
-# fgco - checkout git branch
+# fgco - checkout git branch (including remote branches)
 fgco() {
   local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-}
-
-# fgcor - checkout git branch (including remote branches)
-fgcor() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
+  branches=$(git branch --color=always --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+           fzf-tmux --ansi -d $(( 2 + $(wc -l <<< "$branches") )) +m --preview "echo {} | sed 's/.* //' | xargs git log --color=always") &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -80,6 +73,40 @@ fga() {
         echo "Completed: git add $selected"
     fi
 }
+
+# fgrs - git restore --staged browser
+fgrs() {
+    local selected
+    selected=$(git -c color.status=always status -s | fzf -m --ansi | cut -c 4- | sed "s/^/\"/" | sed "s/$/\"/")
+    if [[ -n "$selected" ]]; then
+        echo $selected | sed "/^$/d" | xargs git restore --staged
+		selected=$(echo $selected | tr '\n' ' ')
+        echo "Completed: git restore --staged $selected"
+    fi
+}
+
+# zkill - kill processes
+zkill() {
+    local pid
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi
+
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
+
+# zhist - insert the selected command from history into the command line/region
+zhist() {
+	BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER")
+	CURSOR=$#BUFFER
+	zle reset-prompt
+}
+
 # end fzf ==============================
 
 
@@ -185,6 +212,15 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
+
+zle -N zhist
+bindkey '^r' zhist
+
+setopt monitor
+
+_ssh() {
+	compadd $(grep -i '^host ' ~/.ssh/config | awk '{print $2}' | sort);
+}
 
 # for golang
 export GOPATH=$(go env GOPATH)
