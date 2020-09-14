@@ -165,6 +165,7 @@ alias ll='ls -la -G'
 alias la='ls -a -G'
 alias cp='cp -i'
 alias mv='mv -i'
+alias cdgr='cd-gitroot'
 
 alias g='git'
 alias ga='git add'
@@ -198,7 +199,7 @@ export GREP_OPTIONS='--color=auto'
 
 # history
 LANG=ja_JP.UTF-8
-HISTFILE=$HOME/.zsh_history
+HISTFILE=$HOME/.bash_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt no_flow_control
@@ -232,8 +233,10 @@ if [[ $#h -gt 0 ]]; then
 fi
 
 # for golang
-export GOPATH=$(go env GOPATH)
-PATH=$PATH:$(go env GOPATH)/bin
+if type "go" > /dev/null 2>&1; then
+	export GOPATH=$(go env GOPATH)
+	PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 export sshpass
 

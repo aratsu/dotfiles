@@ -18,11 +18,14 @@ if dein#load_state('$HOME/.vim/dein')
   call dein#add('itchyny/vim-gitbranch')
   call dein#add('mbbill/undotree')
   call dein#add('tomtom/tcomment_vim')
-  call dein#add('fatih/vim-go')
+  if executable('go')
+	  call dein#add('fatih/vim-go')
+  endif
   call dein#add('scrooloose/nerdtree')
   call dein#add('Shougo/unite.vim')
   call dein#add('Shougo/neomru.vim')
   call dein#add('t9md/vim-quickhl')
+  call dein#add('airblade/vim-gitgutter')
 
   " Required:
   call dein#end()
@@ -45,9 +48,6 @@ endif
 "lightline--------------------------
 
 if dein#tap('lightline.vim')
-"  let g:lightline = {
-"    \ 'colorscheme': 'landscape',
-"    \ }
   let g:lightline = {
 	\ 'colorscheme': 'landscape',
     \ 'active': {
@@ -63,13 +63,14 @@ endif
 
 "End lightline--------------------------
 
+let g:go_version_warning = 0
 
 
 
 " 表示設定---------------------------------------------------------------
+syntax on	" コードの色分け
 set title	" 編集中のファイル名を表示
 set showmatch	" 括弧入力時の対応する括弧を表示
-syntax on	" コードの色分け
 set ruler	" 右下にルーラーを表示する
 set number	" 行番号を表示する
 set cursorline  " 選択行をハイライト
@@ -78,6 +79,7 @@ set visualbell t_vb=  "ビープ音を消す
 set wildmenu
 set wildmode=longest,list
 set display=lastline
+hi Comment ctermfg=lightblue
 
 if dein#tap('vim-quickhl')
 	vmap H <Plug>(quickhl-manual-this)
@@ -129,7 +131,7 @@ nnoremap [Q :cfirst<CR>
 nnoremap ]Q :clast<CR>
 
 
-"" 文字コード設定-----------------------------------------------------------
+" 文字コード設定-----------------------------------------------------------
 "set encoding=utf-8
 "set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 "set fileformats=unix,dos,mac
