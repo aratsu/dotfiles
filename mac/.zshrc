@@ -42,6 +42,14 @@ fi
 # fzf ==================================
 export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
+# fcd - cd to selected directory
+fcd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
 # fgco - checkout git branch (including remote branches)
 fgco() {
   local branches branch
