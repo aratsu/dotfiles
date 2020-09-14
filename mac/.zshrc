@@ -93,8 +93,8 @@ fgrs() {
     fi
 }
 
-# zkill - kill processes
-zkill() {
+# fkill - kill processes
+fkill() {
     local pid
     if [ "$UID" != "0" ]; then
         pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
@@ -108,8 +108,8 @@ zkill() {
     fi
 }
 
-# zhist - insert the selected command from history into the command line/region
-zhist() {
+# fhist - insert the selected command from history into the command line/region
+fhist() {
 	BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER")
 	CURSOR=$#BUFFER
 	zle reset-prompt
@@ -230,9 +230,14 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
-
-zle -N zhist
-bindkey '^r' zhist
+# 履歴を追加 (毎回 .zsh_history を作るのではなく)
+setopt append_history
+# 履歴をインクリメンタルに追加
+setopt inc_append_history
+# historyコマンドは履歴に登録しない
+setopt hist_no_store
+zle -N fhist
+bindkey '^r' fhist
 
 setopt monitor
 
