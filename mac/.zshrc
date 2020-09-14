@@ -160,9 +160,18 @@ bindkey -e
 
 
 #aliases
-alias ls='ls -G'
-alias ll='ls -la -G'
-alias la='ls -a -G'
+case ${OSTYPE} in
+    darwin*)
+        alias ls='ls -G'
+        alias ll='ls -la -G'
+        alias la='ls -a -G'
+        ;;
+    linux*)
+        alias ls='ls --color=auto'
+        alias ll='ls -la --color=auto'
+        alias la='ls -a --color=auto'
+        ;;
+esac
 alias cp='cp -i'
 alias mv='mv -i'
 alias cdgr='cd-gitroot'
@@ -198,8 +207,8 @@ alias gstu='git stash -u'
 export GREP_OPTIONS='--color=auto'
 
 # history
-LANG=ja_JP.UTF-8
-HISTFILE=$HOME/.bash_history
+#LANG=ja_JP.UTF-8
+HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt no_flow_control
@@ -238,7 +247,7 @@ if type "go" > /dev/null 2>&1; then
 	PATH=$PATH:$(go env GOPATH)/bin
 fi
 
-export sshpass
+export SSHPASS
 
 # path
 PATH="$PATH:$HOME/.bin"
