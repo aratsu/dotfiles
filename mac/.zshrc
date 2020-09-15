@@ -204,7 +204,6 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gstu='git stash -u'
 
-export GREP_OPTIONS='--color=auto'
 
 # history
 #LANG=ja_JP.UTF-8
