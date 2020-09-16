@@ -158,6 +158,13 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 inoremap <C-@> <Nop>
 nnoremap <silent> <ESC><ESC> :noh<CR>
+nnoremap Y y$
+nnoremap p ]p
+nnoremap P ]P
+nnoremap <S-h> 0
+nnoremap <S-l> $
+nnoremap <silent> <S-M> :s/^ \+//g<CR>:s/ \+/\r/g<CR>:noh<CR>
+vnoremap <silent> <S-M> :s/^ \+//g<CR>:s/ \+/\r/g<CR>:noh<CR>
 
 " persistent undo
 if has("persistent_undo")
