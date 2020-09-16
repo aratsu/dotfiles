@@ -263,5 +263,6 @@ export SSHPASS
 
 # path
 PATH="$PATH:$HOME/.bin"
+PATH="$PATH:$HOME/.local/bin"
 typeset -U path PATH
 
