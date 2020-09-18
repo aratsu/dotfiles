@@ -262,6 +262,9 @@ fi
 export SSHPASS
 WORDCHARS="${WORDCHARS}|"
 
+export VISUAL='vim'
+export EDITOR='vim'
+
 # path
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.bin:$PATH"
