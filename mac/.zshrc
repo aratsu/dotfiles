@@ -263,7 +263,7 @@ export SSHPASS
 WORDCHARS="${WORDCHARS}|"
 
 # path
-PATH="$PATH:$HOME/.bin"
-PATH="$PATH:$HOME/.local/bin"
+PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.bin:$PATH"
 typeset -U path PATH
 
