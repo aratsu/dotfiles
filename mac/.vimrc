@@ -26,6 +26,7 @@ if dein#load_state('$HOME/.vim/dein')
   call dein#add('Shougo/neomru.vim')
   call dein#add('t9md/vim-quickhl')
   call dein#add('airblade/vim-gitgutter')
+  call dein#add('thinca/vim-visualstar')
 
   " Required:
   call dein#end()
@@ -121,6 +122,10 @@ set smartcase	" 検索文字列に大文字が含まれている場合は区別�
 set wrapscan	" 検索時に最後まで行ったら最初に戻る
 set hlsearch " ハイライトサーチ
 set incsearch  "インクリメンタルサーチ
+nnoremap * *N
+nnoremap # #N
+map * <Plug>(visualstar-*)N
+map # <Plug>(visualstar-#)N
 
 " quickfix
 autocmd QuickFixCmdPost *grep* cwindow
