@@ -1,6 +1,6 @@
 "adein Scripts-----------------------------
 if &compatible
-  set nocompatible               " Be iMproved
+    set nocompatible               " Be iMproved
 endif
 
 " Required:
@@ -8,29 +8,29 @@ set runtimepath+=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
 if dein#load_state('$HOME/.vim/dein')
-  call dein#begin('$HOME/.vim/dein')
-  
-  " Let dein manage dein
-  " Required:
-  call dein#add('$HOME/.vim/dein/repos/github.com/Shougo/dein.vim')
+    call dein#begin('$HOME/.vim/dein')
 
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('itchyny/vim-gitbranch')
-  call dein#add('mbbill/undotree')
-  call dein#add('tomtom/tcomment_vim')
-  if executable('go')
-	  call dein#add('fatih/vim-go')
-  endif
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/neomru.vim')
-  call dein#add('t9md/vim-quickhl')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('thinca/vim-visualstar')
+    " Let dein manage dein
+    " Required:
+    call dein#add('$HOME/.vim/dein/repos/github.com/Shougo/dein.vim')
 
-  " Required:
-  call dein#end()
-  call dein#save_state()
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('itchyny/vim-gitbranch')
+    call dein#add('mbbill/undotree')
+    call dein#add('tomtom/tcomment_vim')
+    if executable('go')
+        call dein#add('fatih/vim-go')
+    endif
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/neomru.vim')
+    call dein#add('t9md/vim-quickhl')
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('thinca/vim-visualstar')
+
+    " Required:
+    call dein#end()
+    call dein#save_state()
 endif
 
 " Required:
@@ -39,7 +39,7 @@ syntax enable
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
-  call dein#install()
+    call dein#install()
 endif
 
 "End dein Scripts-------------------------
@@ -49,18 +49,28 @@ endif
 "lightline--------------------------
 
 if dein#tap('lightline.vim')
-  let g:lightline = {
-	\ 'colorscheme': 'landscape',
-    \ 'active': {
-    \   'left': [['mode', 'paste'],
-    \            ['gitbranch','readonly', 'filename', 'modified']]
-	\ },
-    \ 'component_function': {
-    \   'cwd': 'getcwd',
-    \   'gitbranch': 'gitbranch#name'
-    \ },
-    \ }
+    let g:lightline = {
+                \ 'colorscheme': 'landscape',
+                \ 'active': {
+                \   'left': [['mode', 'paste'],
+                \            ['gitbranch','readonly', 'fullpath', 'modified']]
+                \ },
+                \ 'component_function': {
+                \   'fullpath': 'LightLineFileNameWithFullPath',
+                \   'cwd': 'getcwd',
+                \   'gitbranch': 'gitbranch#name'
+                \ },
+                \ }
 endif
+
+function! LightLineFileNameWithFullPath()
+    if expand('%:t') ==# ''
+        let filename = '[No Name]'
+    else
+        let filename = substitute(expand('%:p'), '^'.$HOME, "~", "")
+    endif
+    return filename
+endfunction
 
 "End lightline--------------------------
 
@@ -83,8 +93,8 @@ set display=lastline
 hi Comment ctermfg=lightblue
 
 if dein#tap('vim-quickhl')
-	vmap H <Plug>(quickhl-manual-this)
-	nmap H <Plug>(quickhl-manual-reset)
+    vmap H <Plug>(quickhl-manual-this)
+    nmap H <Plug>(quickhl-manual-reset)
 endif
 
 set smartindent	" オートインデント
@@ -92,15 +102,15 @@ set autoindent
 set tabstop=4	" 見かけのタブ幅
 set shiftwidth=4 " オートインデント幅
 set softtabstop=0 " タブ幅
-"set expandtab  " タブをスペース複数個で表現
+set expandtab  " タブをスペース複数個で表現
 set cmdheight=1 " コマンドラインの高さ
 
 "" 不可視文字を可視化
-"set list
-"set listchars=tab:»-  " タブ
-"set listchars+=trail:-  " 行末スペース
-"set listchars+=nbsp:%  " ノーブレークスペース
-"set listchars+=eol:¬  " 改行
+set list
+set listchars=tab:»-  " タブ
+set listchars+=trail:-  " 行末スペース
+set listchars+=nbsp:%  " ノーブレークスペース
+set listchars+=eol:¬  " 改行
 
 " ステータスライン
 set laststatus=2 "ステータスラインを常に表示
@@ -177,6 +187,6 @@ if has("persistent_undo")
     set undofile
 endif
 if dein#tap('undotree')
-	:command Undotree UndotreeShow
+    :command Undotree UndotreeShow
 endif
 
