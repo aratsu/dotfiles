@@ -15,6 +15,7 @@ if dein#load_state('$HOME/.vim/dein')
     call dein#add('$HOME/.vim/dein/repos/github.com/Shougo/dein.vim')
 
     call dein#add('itchyny/lightline.vim')
+    call dein#add('mengelbrecht/lightline-bufferline')
     call dein#add('itchyny/vim-gitbranch')
     call dein#add('mbbill/undotree')
     call dein#add('tomtom/tcomment_vim')
@@ -27,6 +28,8 @@ if dein#load_state('$HOME/.vim/dein')
     call dein#add('t9md/vim-quickhl')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('thinca/vim-visualstar')
+    call dein#add('ConradIrwin/vim-bracketed-paste')
+    call dein#add('junegunn/vim-peekaboo')
 
     " Required:
     call dein#end()
@@ -49,6 +52,9 @@ endif
 "lightline--------------------------
 
 if dein#tap('lightline.vim')
+    let g:lightline#bufferline#show_number  = 1
+    let g:lightline#bufferline#shorten_path = 0
+    let g:lightline#bufferline#unnamed      = '[No Name]'
     let g:lightline = {
                 \ 'colorscheme': 'landscape',
                 \ 'active': {
@@ -60,8 +66,23 @@ if dein#tap('lightline.vim')
                 \   'cwd': 'getcwd',
                 \   'gitbranch': 'gitbranch#name'
                 \ },
+                \ 'tabline': {
+                \   'left': [['buffers']],
+                \   'right': [[]]
+                \ },
+                \ 'component_expand': {
+                \   'buffers': 'lightline#bufferline#buffers'
+                \ },
+                \ 'component_type': {
+                \   'buffers': 'tabsel'
+                \ },
                 \ }
 endif
+
+function! LightlineBufferline()
+  call bufferline#refresh_status()
+  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
+endfunction
 
 function! LightLineFileNameWithFullPath()
     if expand('%:t') ==# ''
@@ -124,6 +145,7 @@ set laststatus=2 "ステータスラインを常に表示
 "set statusline+=[ENC=%{&fileencoding}] " file encoding
 "set statusline+=[LOW=%l/%L] "現在行数/全行数
 set showcmd "入力中のコマンドを表示
+set showtabline=2
 
 
 " 検索設定---------------------------------------------------------------
