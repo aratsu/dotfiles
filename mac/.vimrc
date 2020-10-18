@@ -62,16 +62,17 @@ if dein#tap('lightline.vim')
                 \            ['gitbranch','readonly', 'fullpath', 'modified']]
                 \ },
                 \ 'component_function': {
-                \   'fullpath': 'LightLineFileNameWithFullPath',
-                \   'cwd': 'getcwd',
-                \   'gitbranch': 'gitbranch#name'
                 \ },
                 \ 'tabline': {
                 \   'left': [['buffers']],
-                \   'right': [[]]
+                \   'right': [['currenttab']]
                 \ },
                 \ 'component_expand': {
-                \   'buffers': 'lightline#bufferline#buffers'
+                \   'fullpath': 'LightlineFileNameWithFullPath',
+                \   'cwd': 'getcwd',
+                \   'gitbranch': 'gitbranch#name',
+                \   'buffers': 'lightline#bufferline#buffers',
+                \   'currenttab': 'LightlineCurrentTab',
                 \ },
                 \ 'component_type': {
                 \   'buffers': 'tabsel'
@@ -79,18 +80,17 @@ if dein#tap('lightline.vim')
                 \ }
 endif
 
-function! LightlineBufferline()
-  call bufferline#refresh_status()
-  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
-endfunction
-
-function! LightLineFileNameWithFullPath()
+function! LightlineFileNameWithFullPath()
     if expand('%:t') ==# ''
         let filename = '[No Name]'
     else
         let filename = substitute(expand('%:p'), '^'.$HOME, "~", "")
     endif
     return filename
+endfunction
+
+function! LightlineCurrentTab()
+  return '['.tabpagenr().'/'.tabpagenr('$').'] '.lightline#tab#filename(tabpagenr())
 endfunction
 
 "End lightline--------------------------
