@@ -131,7 +131,10 @@ set list
 set listchars=tab:»-  " タブ
 set listchars+=trail:-  " 行末スペース
 set listchars+=nbsp:%  " ノーブレークスペース
-set listchars+=eol:¬  " 改行
+set listchars+=eol:↲  " 改行
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=nbsp:%
 
 " ステータスライン
 set laststatus=2 "ステータスラインを常に表示
