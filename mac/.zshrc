@@ -212,6 +212,22 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gstu='git stash -u'
 
+sshp() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: sshp destination" >&2
+        return 1
+    fi
+    if type "sshpass" > /dev/null 2>&1; then
+        if [[ -z "$SSHPASS" ]]; then
+            echo -n "SSHPASS: "
+            read -s SSHPASS
+        fi
+        sshpass -e ssh -o StrictHostKeyChecking=no $1
+    else
+        ssh $1
+    fi
+}
+
 
 # history
 #LANG=ja_JP.UTF-8

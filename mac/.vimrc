@@ -30,6 +30,7 @@ if dein#load_state('$HOME/.vim/dein')
     call dein#add('thinca/vim-visualstar')
     call dein#add('ConradIrwin/vim-bracketed-paste')
     call dein#add('junegunn/vim-peekaboo')
+    call dein#add('google/vim-jsonnet')
 
     " Required:
     call dein#end()
